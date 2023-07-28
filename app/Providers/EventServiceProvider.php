@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Domain\Clients\Models\Client;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
+use Interfaces\Admin\Clients\Observers\ClientObserver;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,5 +29,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Client::observe(ClientObserver::class);
     }
 }
